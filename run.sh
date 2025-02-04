@@ -15,6 +15,7 @@ echo -e "${RED}>>> No update. Installing development packages in 5 seconds.${NC}
 sleep 5
 
 sudo apt install unzip libgmp-dev libmpfr-dev libsdl2-dev autoconf -y
+( cd /usr/local/include/ ; sudo ln -s ../../include/SDL2 . ) # FIXME: Find a way without needing this
 
 echo -e "${RED}>>> Downloading Basilisk II in 5 seconds.${NC}"
 sleep 5
