@@ -170,7 +170,7 @@ sudo nano /boot/firmware/cmdline.txt
 Add the following options to the end of the line:
 
 ```plaintext
-quiet xinit=/home/pi/basilisk_autostart.sh
+quiet fastboot init=/home/pi/basilisk_autostart.sh
 ```
 Save and exit by pressing Ctrl + X, then Y, then Enter.
 
