@@ -137,6 +137,43 @@ Reboot your Raspberry Pi to test the configuration:
 sudo reboot
 ```
 
+#### Step 4: Cutting down boot time by skipping systemd
+
+Using an unmodified Raspberry Pi OS is not really suitable because the boot time is too long and too much stuff goes on on beforel macOS is booted. By skipping systemd one can dramatically cut down the boot process using a custom init script that just runs the bare minimum needed.
+
+Open the `~/basilisk_autostart.sh` file for editing:
+```bash
+sudo nano ~/basilisk_autostart.sh
+```
+
+```bash
+#!/bin/bash
+mount / -o remount,rw
+exec > /dev/null 2>&1
+export HOME=/home/pi
+cd ~
+/usr/local/bin/BasiliskII
+mount / -o remount,ro
+sync
+poweroff -f
+```
+
+Save and exit by pressing Ctrl + X, then Y, then Enter.
+
+Remove it from `/etc/rc.local` (that file never existed on my system in the first place).
+
+Open cmdline.txt:
+```bash
+sudo nano /boot/firmware/cmdline.txt
+```
+
+Add the following options to the end of the line:
+
+```plaintext
+quiet xinit=/home/pi/basilisk_autostart.sh
+```
+Save and exit by pressing Ctrl + X, then Y, then Enter.
+
 ## Getting help with Basilisk II, and Macintosh emulation in general
 - [E-Maculation wiki](https://www.emaculation.com/doku.php) setup guides for Basilisk II and other emulators
 - [E-Maculation forums](https://www.emaculation.com/forum/), active discussion about several Mac emulators]
